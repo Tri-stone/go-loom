@@ -15,6 +15,8 @@ message Params {
     BigUInt byzantine_slashing_percentage = 8;
     uint64 min_candidate_fee = 9;
     uint64 downtime_period = 10;
+    BigUInt max_downtime_percentage = 11;
+    bool jail_offline_validators = 12;
 }
 
 message State {
@@ -41,6 +43,7 @@ message ValidatorStatistic {
     uint64 recently_missed_blocks = 6;
     BigUInt update_whitelist_amount = 7;
     LocktimeTier update_locktime_tier = 8;
+    bool jailed = 9;
 }
 
 message Candidate {
@@ -112,9 +115,15 @@ message DelegationList {
     repeated DelegationIndex delegations = 1;
 }
 
+message Referrer {
+    Address referrer_address = 1;
+    string name = 2;
+}
+
 message DPOSInitRequest {
     Params params = 1;
     repeated Validator validators = 2;
+    bool init_candidates = 3;
 }
 
 message DelegateRequest {
@@ -283,6 +292,13 @@ message ListAllDelegationsResponse {
     repeated ListDelegationsResponse list_responses = 1;
 }
 
+message ListReferrersRequest{
+}
+
+message ListReferrersResponse{
+    repeated Referrer referrers = 1;
+}
+
 // Oracle request batch
 message BatchRequest {
     oneof payload {
@@ -344,6 +360,18 @@ message SetSlashingPercentagesRequest {
     BigUInt byzantine_slashing_percentage = 2;
 }
 
+message SetMaxDowntimePercentageRequest {
+    BigUInt max_downtime_percentage = 1;
+}
+
+message UnjailRequest {
+    Address validator = 1;
+}
+
+message EnableValidatorJailingRequest {
+    bool jail_offline_validators = 1;
+}
+
 message GetStateRequest {
 }
 
@@ -375,6 +403,30 @@ message DposElectionEvent {
 message DposSlashEvent {
     Address validator = 1;
     BigUInt slash_percentage = 2;
+}
+
+message DposSlashDelegationEvent {
+    Address validator = 1;
+    Address delegator = 2;
+    BigUInt delegation_amount = 3;
+    uint64  delegation_index = 4;
+    BigUInt slash_amount = 5;
+    BigUInt slash_percentage = 6;
+}
+
+message DposSlashWhitelistAmountEvent {
+    Address validator = 1;
+    BigUInt whitelist_amount = 2;
+    BigUInt slash_amount = 3;
+    BigUInt slash_percentage = 4;
+}
+
+message DposJailEvent {
+    Address validator = 1;
+}
+
+message DposUnjailEvent {
+    Address validator = 1;
 }
 
 message DposCandidateRegistersEvent {
