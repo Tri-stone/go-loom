@@ -9,7 +9,7 @@ YUBIHSM_DIR = $(GOPATH)/src/github.com/certusone/yubihsm-go
 # This commit sha should match the one in loomchain repo
 GETH_GIT_REV = 1fb6138d017a4309105d91f187c126cf979c93f9
 BTCD_GIT_REV = 7d2daa5bfef28c5e282571bc06416516936115ee
-YUBIHSM_REV = 0299fd5d703d2a576125b414abbe172eaec9f65e
+YUBIHSM_REV = 892fb9b370f3cbb486fc1f53d4a1d89e9f552af0
 
 .PHONY: all evm examples get_lint update_lint example-cli evmexample-cli example-plugins example-plugins-external plugins proto test lint deps clean test-evm deps-evm deps-all lint
 
@@ -88,6 +88,7 @@ proto: \
 	builtin/types/transfer_gateway/transfer_gateway.pb.go \
 	builtin/types/transfer_gateway/v1/transfer_gateway.pb.go \
 	builtin/types/user_deployer_whitelist/user_deployer_whitelist.pb.go \
+	builtin/types/sample_go_contract/sample_go_contract.pb.go \
 	testdata/test.pb.go \
 	examples/types/types.pb.go \
 	examples/plugins/lottery/lottery.pb.go \
@@ -151,6 +152,7 @@ clean:
 		builtin/types/chainconfig/chainconfig.pb.go \
 		builtin/types/deployer_whitelist/deployer_whitelist.pb.go \
 		builtin/types/user_deployer_whitelist/user_deployer_whitelist.pb.go \
+		builtin/types/sample_go_contract/sample_go_contract.pb.go \
 		testdata/test.pb.go \
 		examples/types/types.pb.go \
 		examples/plugins/evmexample/types/types.pb.go \
